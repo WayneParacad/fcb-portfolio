@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="./favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <title>Wayne - Comp Eng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* 
+      Theme Colors:
+      - Midnight Blue: #0B132B / #1C2541 / #101B3B
+      - Cloud Dancer (Soft Off-White/Ivory): #F0F2F5 / #E2E8F0 / #FFFFFF
+      - Corporate Accent Blue: #2563EB / #3B82F6
+    */
+      :root {
+        --bg-main: #0B132B;
+        --bg-surface: #131E3A;
+        --bg-card: #172447;
+        --border-color: #24345D;
+        --text-main: #F0F2F5;
+        --text-muted: #94A3B8;
+        --accent: #2563EB;
+        --accent-hover: #1D4ED8;
+        --btn-secondary-bg: #223158;
+        --btn-secondary-hover: #2D3F6F;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Navigation */
+      header {
+        background-color: #080D1E;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 72px;
+      }
+
+      .brand-link {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-main);
+        text-decoration: none;
+        letter-spacing: -0.02em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+      }
+
+      .nav-link {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+
+      .nav-link:hover {
+        color: var(--text-main);
+      }
+
+      /* Section Common Styles */
+      section {
+        padding: 72px 0;
+      }
+
+      .section-title {
+        font-size: 1.85rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 36px;
+        letter-spacing: -0.02em;
+        color: var(--text-main);
+      }
+
+      /* Hero / Intro Section */
+      .hero-section {
+        padding: 80px 0 60px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 52px;
+        align-items: center;
+      }
+
+      .profile-image-container {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-surface);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      }
+
+      .profile-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 8px;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-content h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: #93C5FD;
+        margin-bottom: 18px;
+      }
+
+      .hero-content p {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        margin-bottom: 28px;
+        max-width: 620px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        text-align: center;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-primary {
+        background-color: var(--accent);
+        color: #FFFFFF;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .btn-secondary {
+        background-color: var(--btn-secondary-bg);
+        color: var(--text-main);
+        border: 1px solid var(--border-color);
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--btn-secondary-hover);
+      }
+
+      /* About Section */
+      .about-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 48px;
+        min-height: 200px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .about-card p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        line-height: 1.8;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* Projects Section */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .project-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      }
+
+      .project-card-image {
+        width: 100%;
+        height: 190px;
+        overflow: hidden;
+        background-color: #1E2B4D;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .project-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .project-card-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      .project-card-body h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-main);
+      }
+
+      .project-card-body p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 22px;
+        flex-grow: 1;
+      }
+
+      .project-card-body a {
+        align-self: flex-start;
+      }
+
+      /* Skills & Tools Section */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+      }
+
+      .skills-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .skills-card-header {
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--border-color);
+        background-color: rgba(255, 255, 255, 0.02);
+      }
+
+      .skills-card-header h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--text-main);
+        text-align: center;
+      }
+
+      .skills-card-body {
+        padding: 24px;
+      }
+
+      .skills-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .skills-list li {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        padding: 10px 14px;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      /* Contact Section */
+      .contact-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 56px 32px;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .contact-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        text-align: center;
+      }
+
+      .contact-item {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+      }
+
+      .contact-link {
+        color: #60A5FA;
+        text-decoration: none;
+        word-break: break-all;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+      }
+
+      .contact-link:hover {
+        color: #93C5FD;
+        text-decoration: underline;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #060914;
+        border-top: 1px solid var(--border-color);
+        padding: 32px 0;
+        text-align: center;
+      }
+
+      footer p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 220px 1fr;
+          gap: 36px;
+        }
+
+        .projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 680px) {
+        .nav-container {
+          flex-direction: column;
+          height: auto;
+          padding: 18px 0;
+          gap: 14px;
+        }
+
+        .nav-links {
+          gap: 18px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 28px;
+        }
+
+        .profile-image-container {
+          max-width: 200px;
+          margin: 0 auto;
+        }
+
+        .hero-buttons {
+          justify-content: center;
+        }
+
+        .hero-content p {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .about-card {
+          padding: 32px 20px;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <div class="container nav-container">
+        <!-- EDIT: NAVBAR_BRAND --> Computer Engineer
+        <a href="#" class="brand-link"></a>
+        <ul class="nav-links">
+          <li>
+            <a href="#about" class="nav-link">About</a>
+          </li>
+          <li>
+            <a href="#projects" class="nav-link">Projects</a>
+          </li>
+          <li>
+            <a href="#skills" class="nav-link">Skills/Tools</a>
+          </li>
+          <li>
+            <a href="#contact" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <!-- Hero / Header Section -->
+      <section class="hero-section">
+        <div class="container hero-grid">
+          <div class="profile-image-container">
+            <!-- EDIT: PROFILE_IMAGE -->
+            <img src="./PROFILE.jpg">
+          </div>
+          <div class="hero-content">
+            <!-- EDIT: HEADING --> 
+            <h1>Wayne Jaysen C. Paracad</h1>
+            <!-- EDIT: JOB_TITLE --> 
+            <h2>Computer Engineer</h2>
+            <!-- EDIT: SHORT_INTRODUCTION --> 
+            <p>Computer Engineering graduate skilled in IT support, network administration, Python, SQL, database management, and troubleshooting technical issues.</p>
+            <div class="hero-buttons">
+              <!-- EDIT: VIEW_PROJECTS_BUTTON -->
+              <a href="#projects" class="btn btn-secondary">View My Projects</a>
+              <!-- EDIT: CONTACT_ME_BUTTON -->
+              <a href="#contact" class="btn btn-secondary">Contact Me</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- About Section -->
+      <section id="about">
+        <div class="container">
+          <h2 class="section-title">About Me</h2>
+          <div class="about-card">
+            <!-- EDIT: ABOUT_YOU -->
+            <p>I am a Computer Engineering graduate with an interest in IT support, network administration, data engineering, and database management. My technical skills include troubleshooting computer hardware and software, basic network configuration, Python programming, SQL, and relational database design. I enjoy solving technical problems, learning new technologies, and developing practical solutions that improve system reliability and efficiency. I aim to contribute to technology-driven teams by applying my knowledge, attention to detail, and willingness to learn while continuously growing as an IT professional.</p>
+          </div>
+        </div>
+      </section>
+      <!-- Projects Section -->
+      <section id="projects">
+        <div class="container">
+          <h2 class="section-title">Projects</h2>
+          <div class="projects-grid">
+            <!-- Project Card 1 -->
+            <div class="project-card">
+              <div class="project-card-image">
+                <!-- EDIT: PROJECT_IMAGE_1 -->
+                <img src="https://tse3.mm.bing.net/th/id/OIP.BBcG-_0kOHcknOUB93WOhwHaES?r=0&pid=Api&h=220&P=0">
+              </div>
+              <div class="project-card-body">
+                <!-- EDIT: PROJECT_TITLE_1 -->
+                <h3>ETL Data Pipeline for Data Integration</h3>
+                <!-- EDIT: PROJECT_DESCRIPTION_1 -->
+                <p>Build a Python-based ETL (Extract, Transform, Load) pipeline using Pandas and data processing libraries to collect, clean, and transform data from multiple sources into a structured CSV file. This project demonstrates data integration, data cleaning, and automation skills essential for data engineering workflows.</p>
+                <!-- EDIT: PROJECT_LINK_1 -->
+                <a href="#" class="btn btn-primary">Project Link</a>
+              </div>
+            </div>
+            <!-- Project Card 2 -->
+            <div class="project-card">
+              <div class="project-card-image">
+                <!-- EDIT: PROJECT_IMAGE_2 -->
+                <img src="https://tse2.mm.bing.net/th/id/OIP.FLNb-vpMR6PwmkbADlpRTwAAAA?r=0&pid=Api&h=220&P=0">
+              </div>
+              <div class="project-card-body">
+                <!-- EDIT: PROJECT_TITLE_2 -->
+                <h3>Relational Database Design and SQL Management</h3>
+                <!-- EDIT: PROJECT_DESCRIPTION_2 -->
+                <p>Design and implement a relational database using MySQL or PostgreSQL, applying SQL queries, database normalization, primary and foreign keys, and entity-relationship diagrams (ERDs). The project demonstrates how structured data can be organized, maintained, and queried efficiently to support business reporting and data-driven decisions.</p>
+                <!-- EDIT: PROJECT_LINK_2 -->
+                <a href="#" class="btn btn-primary">Project Link</a>
+              </div>
+            </div>
+            <!-- Project Card 3 -->
+            <div class="project-card">
+              <div class="project-card-image">
+                <!-- EDIT: PROJECT_IMAGE_3 -->
+                <img src="https://tse4.mm.bing.net/th/id/OIP.9CBJgw4GGalNLR5qfgENGQHaD3?r=0&pid=Api&h=220&P=0">
+              </div>
+              <div class="project-card-body">
+                <!-- EDIT: PROJECT_TITLE_3 -->
+                <h3>Automated Data Processing and Pipeline Orchestration</h3>
+                <!-- EDIT: PROJECT_DESCRIPTION_3 -->
+                <p>Develop a data pipeline that automates data extraction, transformation, and loading using Python, SQL, and Apache Airflow. The project aims to demonstrate workflow scheduling, task dependencies, and data pipeline monitoring, building practical skills for managing reliable and repeatable data engineering processes.</p>
+                <!-- EDIT: PROJECT_LINK_3 -->
+                <a href="#" class="btn btn-primary">Project Link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Skills and Tools Section -->
+      <section id="skills">
+        <div class="container">
+          <h2 class="section-title">Skills and Tools</h2>
+          <div class="skills-grid">
+            <!-- Skills Card -->
+            <div class="skills-card">
+              <div class="skills-card-header">
+                <!-- EDIT: SKILLS_HEADING -->
+                <h3>Skills</h3>
+              </div>
+              <div class="skills-card-body">
+                <ul class="skills-list">
+                  <!-- EDIT: SKILL_ITEM_1 -->
+                  <li>SQL and Relational Database Management</li>
+                  <!-- EDIT: SKILL_ITEM_2 -->
+                  <li>Data Extraction, Transformation, and Loading</li>
+                  <!-- EDIT: SKILL_ITEM_3 -->
+                  <li>Python Programming for Data Engineering</li>
+                </ul>
+              </div>
+            </div>
+            <!-- Tools / Technologies Card -->
+            <div class="skills-card">
+              <div class="skills-card-header">
+                <!-- EDIT: TOOLS_HEADING -->
+                <h3>Tools / Technologies</h3>
+              </div>
+              <div class="skills-card-body">
+                <ul class="skills-list">
+                  <!-- EDIT: TOOL_ITEM_1 -->
+                  <li>MySQL</li>
+                  <!-- EDIT: TOOL_ITEM_2 -->
+                  <li>Jupyter Notebook</li>
+                  <!-- EDIT: TOOL_ITEM_3 -->
+                  <li>PostgreSQL</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Contact Section -->
+      <section id="contact">
+        <div class="container">
+          <h2 class="section-title">Contact</h2>
+          <div class="contact-card">
+            <div class="contact-details">
+              <!-- EDIT: EMAIL -->
+              <p class="contact-item">Email: wparacad@gmail.com</p>
+              <!-- EDIT: CONTACT_INFO -->
+              <p class="contact-item">Contact: +639289632036</p>
+              <!-- EDIT: SOCIAL_LINK -->
+              <p class="contact-item">
+                <a href="#" class="contact-link">https://www.linkedin.com/in/wayneparacad/</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <!-- EDIT: FOOTER_TEXT -->
+        <p>© 2026 Wayne Jaysen C. Paracad. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
